@@ -7,7 +7,7 @@ import Swiper from 'swiper';
 import 'swiper/css';
 
 // Initialisation de Mapbox
-mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpdG91bmVveiIsImEiOiJjbHI1Y3ZmZHMxbWI4MmpwODRlMWZhdGxzIn0.Gl-6FFo3NLZ-AhSnOKp2pQ';
 
 function App() {
   useEffect(() => {
@@ -15,7 +15,7 @@ function App() {
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [3.8772, 43.6119], // Coordonnées de Montpellier
+      center: [3.0767, 44.0983], // Coordonnées de Millau
       zoom: 12
     });
 
@@ -56,14 +56,14 @@ function App() {
       <section className="home" id="home">
         <div className="swiper home-slider">
           <div className="swiper-wrapper">
-            <div className="swiper-slide slide" style={{ background: 'url(images/image_site_dom/slide_1.jpg) no-repeat', backgroundSize: '120%' }}>
+            <div className="swiper-slide slide" style={{ background: 'url(images/image_site_dom/slide_1.jpg) no-repeat' }}>
               <div className="content">
                 <h3>Nous réalisons vos projets de plâtrerie et rénovation</h3>
                 <p>Spécialisés dans les finitions intérieures, nous vous assurons un travail soigné et personnalisé.</p>
                 <a href="#about" className="btn">En savoir plus</a>
               </div>
             </div>
-            <div className="swiper-slide slide" style={{ background: 'url(images/image_site_dom/slide_2.jpg) no-repeat' }}>
+            <div className="swiper-slide slide" style={{ background: 'url(images/image_site_dom/slide_2.jpg) no-repeat !important' }}>
               <div className="content">
                 <h3>Votre intérieur, notre passion</h3>
                 <p>Créons ensemble des espaces qui répondent à vos attentes, pour un confort optimal.</p>
