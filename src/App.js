@@ -56,21 +56,21 @@ function App() {
       <section className="home" id="home">
         <div className="swiper home-slider">
           <div className="swiper-wrapper">
-            <div className="swiper-slide slide" style={{ background: 'url(images/image_site_dom/slide_1.jpg) no-repeat' }}>
+            <div className="swiper-slide slide slide-1">
               <div className="content">
                 <h3>Nous réalisons vos projets de plâtrerie et rénovation</h3>
                 <p>Spécialisés dans les finitions intérieures, nous vous assurons un travail soigné et personnalisé.</p>
                 <a href="#about" className="btn">En savoir plus</a>
               </div>
             </div>
-            <div className="swiper-slide slide" style={{ background: 'url(images/image_site_dom/slide_2.jpg) no-repeat !important' }}>
+            <div className="swiper-slide slide slide-2">
               <div className="content">
                 <h3>Votre intérieur, notre passion</h3>
                 <p>Créons ensemble des espaces qui répondent à vos attentes, pour un confort optimal.</p>
                 <a href="#about" className="btn">En savoir plus</a>
               </div>
             </div>
-            <div className="swiper-slide slide" style={{ background: 'url(images/image_site_dom/slide_3.jpg) no-repeat' }}>
+            <div className="swiper-slide slide slide-3">
               <div className="content">
                 <h3>Des finitions de qualité pour un intérieur unique</h3>
                 <p>Plâtrerie, cloisonnement et isolation nous réalisons vos envies.</p>
