@@ -52,6 +52,12 @@ section {
   border-left: 1rem solid var(--yellow);
 }
 
+.about .row .content h3 {
+  font-size: 3.5rem; 
+  color: var(--black);
+  text-transform: capitalize;
+}
+
 .btn {
   display: inline-block;
   margin-top: 1rem;
@@ -519,20 +525,25 @@ section {
   text-transform: capitalize;
 }
 
-.about .row .content h3 .reveal {
+
+.about .row .content h3 {
   font-size: 3.5rem;
   color: var(--black);
   text-transform: capitalize;
 }
 
-
-
 .about .row .content p {
   font-size: 1.5rem;
   color: var(--light-color);
-  line-height: 2;
-  padding: 1rem 0;
 }
+
+.headReveal span {
+  font-size: 3.5rem;
+  color: var(--black);
+  line-height: unset !important;
+}
+
+
 
 .about .box-container {
   margin-top: 3rem;
