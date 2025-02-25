@@ -5,6 +5,11 @@ import lightGallery from 'lightgallery';
 import 'lightgallery/css/lightgallery.css';
 import Swiper from 'swiper';
 import 'swiper/css';
+import CountUp from './blocks/TextAnimations/CountUp/CountUp';
+import BlurText from './blocks/TextAnimations/BlurText/BlurText';
+import BlobCursor from './blocks/Animations/BlobCursor/BlobCursor';
+import Magnet from './blocks/Animations/Magnet/Magnet';
+import ScrollReveal from './blocks/TextAnimations/ScrollReveal/ScrollReveal';
 
 // Initialisation de Mapbox
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpdG91bmVveiIsImEiOiJjbHI1Y3ZmZHMxbWI4MmpwODRlMWZhdGxzIn0.Gl-6FFo3NLZ-AhSnOKp2pQ';
@@ -39,18 +44,52 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-        <a href="#" className="logo">S.A.R.L <span>Cartayrade Vellas</span></a>
+        <a href="#" className="logo">S.A.R.L
+          <span><BlurText
+            text=" Cartayrade Vellas"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-2xl mb-8"
+          /></span></a>
         <nav className="navbar">
-          <a href="#home">Accueil</a>
-          <a href="#about">À propos</a>
-          <a href="#services">Services</a>
-          <a href="#projects">Projets</a>
-          <a href="#contact">Contact</a>
+          <a href="#home"><BlurText
+            text="Accueil"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-2xl mb-8"
+          /></a>
+          <a href="#about"><BlurText
+            text="À propos"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-2xl mb-8"
+          /></a>
+          <a href="#services"><BlurText
+            text="Services"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-2xl mb-8"
+          /></a>
+          <a href="#projects"><BlurText
+            text="Projets"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-2xl mb-8"
+          /></a>
+          <a href="#contact"><BlurText
+            text="Contact"
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="text-2xl mb-8"
+          /></a>
         </nav>
-        <form action="" className="search-form">
-          <input type="search" name="" placeholder="Recherchez ici..." id="search-box" />
-          <label htmlFor="search-box" className="fas fa-search"></label>
-        </form>
+
       </header>
 
       <section className="home" id="home">
@@ -58,55 +97,117 @@ function App() {
           <div className="swiper-wrapper">
             <div className="swiper-slide slide slide-1">
               <div className="content">
-                <h3>Nous réalisons vos projets de plâtrerie et rénovation</h3>
-                <p>Spécialisés dans les finitions intérieures, nous vous assurons un travail soigné et personnalisé.</p>
-                <a href="#about" className="btn">En savoir plus</a>
+                <h3><BlurText
+                  text="Nous réalisons vos projets de plâtrerie et rénovation"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                  className="blur"
+                /></h3>
+                <p><BlurText
+                  text="Spécialisés dans les finitions intérieures, nous vous assurons un travail soigné et personnalisé."
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                  className="blur"
+                /></p>
+                <Magnet padding={50} disabled={false} magnetStrength={50}>
+                  <a href="#about" className="btn">En savoir plus</a>
+                </Magnet>
+
               </div>
             </div>
             <div className="swiper-slide slide slide-2">
               <div className="content">
                 <h3>Votre intérieur, notre passion</h3>
                 <p>Créons ensemble des espaces qui répondent à vos attentes, pour un confort optimal.</p>
-                <a href="#about" className="btn">En savoir plus</a>
+                <Magnet padding={50} disabled={false} magnetStrength={50}>
+                  <a href="#about" className="btn">En savoir plus</a>
+                </Magnet>
               </div>
             </div>
             <div className="swiper-slide slide slide-3">
               <div className="content">
                 <h3>Des finitions de qualité pour un intérieur unique</h3>
                 <p>Plâtrerie, cloisonnement et isolation nous réalisons vos envies.</p>
-                <a href="#about" className="btn">En savoir plus</a>
+                <Magnet padding={50} disabled={false} magnetStrength={50}>
+                  <a href="#about" className="btn">En savoir plus</a>
+                </Magnet>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+
+
       <section className="about" id="about">
-        <h1 className="heading">À propos de nous</h1>
+
+        <h1 className="heading"> <ScrollReveal
+          baseOpacity={0.5}
+          enableBlur={true}
+          baseRotation={10}
+          blurStrength={10}
+        >À propos de nous </ScrollReveal></h1>
+
         <div className="row">
           <div className="video">
             <video src="images/about-vid.mp4" loop muted autoPlay></video>
           </div>
           <div className="content">
-            <h3 style={{ textTransform: 'unset' }}>Des experts en plâtrerie pour vos projets de rénovation</h3>
+            <h3 style={{ textTransform: 'unset' }}>
+              <ScrollReveal
+                baseOpacity={0.5}
+                enableBlur={true}
+                baseRotation={10}
+                blurStrength={10}
+              >
+                Des experts en plâtrerie pour vos projets de rénovation
+              </ScrollReveal>
+            </h3>
             <p>Forts de nombreuses années d'expérience, nous mettons notre savoir-faire artisanal au service de vos projets de construction et de rénovation.</p>
             <a href="#services" className="btn">Lire plus</a>
           </div>
         </div>
         <div className="box-container">
           <div className="box">
-            <h3>18+</h3>
+            <h3>
+              <CountUp
+                from={0}
+                to={18}
+                separator=","
+                direction="up"
+                duration={0.6}
+                className="count-up-text"
+              /> +
+            </h3>
+
             <p>Années d'expérience</p>
           </div>
           <div className="box">
-            <h3>550+</h3>
+            <h3><CountUp
+              from={0}
+              to={550}
+              separator=","
+              direction="up"
+              duration={0.6}
+              className="count-up-text"
+            /> +</h3>
             <p>Projets neufs ou rénovations</p>
           </div>
           <div className="box">
-            <h3>790+</h3>
+            <h3><CountUp
+              from={0}
+              to={790}
+              separator=","
+              direction="up"
+              duration={0.6}
+              className="count-up-text"
+            /> +</h3>
             <p>Clients satisfaits</p>
           </div>
         </div>
+
       </section>
 
       <section className="services" id="services">

@@ -110,11 +110,18 @@ section {
   font-size: 2.5rem;
   color: var(--black);
   text-transform: capitalize;
+  display: flex;
+;
 }
 
 .header .logo span {
   color: var(--yellow);
 }
+
+.navbar {
+  display:flex;
+}
+
 
 .header .navbar a {
   font-size: 2rem;
@@ -370,6 +377,12 @@ section {
   color: var(--white);
 }
 
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .home {
   padding: 0;
 }
@@ -409,10 +422,16 @@ section {
   text-transform: uppercase;
 }
 
+.home .slide .content h3 .blur {
+  font-size: 6rem;
+  color: var(--black);
+  text-transform: capitalize;
+  text-transform: uppercase;
+}
+
 .home .slide .content p {
   font-size: 1.4rem;
   color: var(--light-color);
-  line-height: 2;
   padding: 1rem 0;
 }
 
@@ -499,6 +518,14 @@ section {
   color: var(--black);
   text-transform: capitalize;
 }
+
+.about .row .content h3 .reveal {
+  font-size: 3.5rem;
+  color: var(--black);
+  text-transform: capitalize;
+}
+
+
 
 .about .row .content p {
   font-size: 1.5rem;
@@ -933,11 +960,10 @@ section {
 
 .swiper-wrapper {
   position: relative;
-  width: 150px !important; 
+  width: 150px !important;
   height: 85vh !important;
   z-index: 1;
-  display: flex
-;
+  display: flex;
   transition-property: transform;
   box-sizing: content-box;
 }
@@ -984,6 +1010,7 @@ section {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
+
 
   .header .navbar a {
     display: block;
