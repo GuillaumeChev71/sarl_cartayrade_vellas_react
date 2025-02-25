@@ -23,8 +23,46 @@ function App() {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [3.0767, 44.0983], // Coordonnées de Millau
-      zoom: 12
+      zoom: 12,
+      scrollZoom: false,
+      boxZoom: false,    
+      dragRotate: false, 
+      dragPan: false,    
+      keyboard: false
     });
+
+    // Fonction pour générer des coordonnées aléatoires autour de Millau
+function getRandomCoordinates(center, radius) {
+  const [lon, lat] = center;
+  const randomRadius = radius * Math.sqrt(Math.random());
+  const angle = Math.random() * Math.PI * 2;
+
+  const newLat = lat + (randomRadius * Math.cos(angle) / 111.32);
+  const newLon = lon + (randomRadius * Math.sin(angle) / (111.32 * Math.cos(lat * (Math.PI / 180))));
+
+  return [newLon, newLat];
+}
+
+// Ajouter des marqueurs avec des emojis de truelle
+map.on('load', () => {
+  const numberOfMarkers = 20; // Nombre d'emojis à ajouter
+  const millauCenter = [3.0767, 44.0983];
+  const radius = 5; // Rayon en degrés pour disperser les emojis
+
+  for (let i = 0; i < numberOfMarkers; i++) {
+    const coordinates = getRandomCoordinates(millauCenter, radius);
+
+    // Créer un élément div pour chaque marqueur
+    const el = document.createElement('div');
+    el.className = 'marker';
+    el.innerHTML = '🛠️'; // Emoji de truelle
+
+    // Ajouter le marqueur à la carte
+    new mapboxgl.Marker(el)
+      .setLngLat(coordinates)
+      .addTo(map);
+  }
+});
 
     // Initialisation de Swiper avec le module Autoplay
     const swiper = new Swiper('.home-slider', {
@@ -274,11 +312,11 @@ function App() {
               animateOpacity
               scale={1}
               threshold={0.2}>
-            <div className="box">
-              <img src="images/service-2.png" alt="Rénovation d'intérieur" />
-              <h3>Rénovation</h3>
-              <p>Transformez votre intérieur avec notre expertise en rénovation.</p>
-            </div>
+              <div className="box">
+                <img src="images/service-2.png" alt="Rénovation d'intérieur" />
+                <h3>Rénovation</h3>
+                <p>Transformez votre intérieur avec notre expertise en rénovation.</p>
+              </div>
             </AnimatedContent>
             <AnimatedContent
               distance={300}
@@ -289,11 +327,11 @@ function App() {
               animateOpacity
               scale={1}
               threshold={0.2}>
-            <div className="box">
-              <img src="images/service-3.png" alt="Plâtrerie et cloisonnement" />
-              <h3>Plâtrerie et Cloisonnement</h3>
-              <p>Nous réalisons les travaux de plâtrerie et cloisons pour créer des espaces personnalisés.</p>
-            </div>
+              <div className="box">
+                <img src="images/service-3.png" alt="Plâtrerie et cloisonnement" />
+                <h3>Plâtrerie et Cloisonnement</h3>
+                <p>Nous réalisons les travaux de plâtrerie et cloisons pour créer des espaces personnalisés.</p>
+              </div>
             </AnimatedContent>
           </div>
         </section>
@@ -353,7 +391,7 @@ function App() {
             <input type="email" placeholder="Email" className="box" style={{ paddingLeft: '15px' }} />
             <input type="number" placeholder="Téléphone" className="box" style={{ paddingLeft: '15px' }} />
             <textarea name="" placeholder="Message" className="box" id="" cols="30" rows="10" style={{ paddingLeft: '15px' }}></textarea>
-            <input type="submit" value="Envoyer" className="btn" />
+            <Magnet padding={50} disabled={false} magnetStrength={10}><input type="submit" value="Envoyer" className="btn" /></Magnet>
           </form>
         </div>
       </section>

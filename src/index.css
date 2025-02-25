@@ -642,6 +642,12 @@ section {
   cursor: initial;
 }
 
+.marker {
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
 .projects .box-container .box:hover .image img {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
