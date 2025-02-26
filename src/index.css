@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 :root {
   --yellow: #658147;
@@ -11,7 +11,10 @@
 }
 
 * {
-  font-family: "Nunito", sans-serif;
+  font-family: "Manrope", serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: normal;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -20,6 +23,7 @@
   border: none;
   text-decoration: none;
 }
+
 
 html {
   font-size: 62.5%;
@@ -111,6 +115,8 @@ section {
   z-index: 1000;
   background: var(--white);
 }
+
+
 
 .header .logo {
   font-size: 2.5rem;
@@ -603,7 +609,7 @@ section {
 }
 
 .services .box-container .box img {
-  height: 7rem;
+  height: 6rem;
   margin-bottom: 0.5rem;
   -webkit-transition: 0.2s linear;
   transition: 0.2s linear;

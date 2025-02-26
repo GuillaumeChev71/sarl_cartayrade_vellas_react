@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './App.css';
 import mapboxgl from 'mapbox-gl';
 import lightGallery from 'lightgallery';
 import 'lightgallery/css/lightgallery.css';
-import Swiper from 'swiper'; // Importer Autoplay
+import Swiper from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import CountUp from './blocks/TextAnimations/CountUp/CountUp';
@@ -13,71 +13,42 @@ import Magnet from './blocks/Animations/Magnet/Magnet';
 import ScrollReveal from './blocks/TextAnimations/ScrollReveal/ScrollReveal';
 import AnimatedContent from './blocks/Animations/AnimatedContent/AnimatedContent';
 
-// Initialisation de Mapbox
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpdG91bmVveiIsImEiOiJjbHI1Y3ZmZHMxbWI4MmpwODRlMWZhdGxzIn0.Gl-6FFo3NLZ-AhSnOKp2pQ';
 
 function App() {
+  const lightGalleryInitialized = useRef(false);
+
   useEffect(() => {
     // Initialisation de la carte Mapbox
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [3.0767, 44.0983], // Coordonnées de Millau
+      center: [3.0767, 44.0983],
       zoom: 12,
       scrollZoom: false,
-      boxZoom: false,    
-      dragRotate: false, 
-      dragPan: false,    
+      boxZoom: false,
+      dragRotate: false,
+      dragPan: false,
       keyboard: false
     });
-
-    // Fonction pour générer des coordonnées aléatoires autour de Millau
-function getRandomCoordinates(center, radius) {
-  const [lon, lat] = center;
-  const randomRadius = radius * Math.sqrt(Math.random());
-  const angle = Math.random() * Math.PI * 2;
-
-  const newLat = lat + (randomRadius * Math.cos(angle) / 111.32);
-  const newLon = lon + (randomRadius * Math.sin(angle) / (111.32 * Math.cos(lat * (Math.PI / 180))));
-
-  return [newLon, newLat];
-}
-
-// Ajouter des marqueurs avec des emojis de truelle
-map.on('load', () => {
-  const numberOfMarkers = 20; // Nombre d'emojis à ajouter
-  const millauCenter = [3.0767, 44.0983];
-  const radius = 5; // Rayon en degrés pour disperser les emojis
-
-  for (let i = 0; i < numberOfMarkers; i++) {
-    const coordinates = getRandomCoordinates(millauCenter, radius);
-
-    // Créer un élément div pour chaque marqueur
-    const el = document.createElement('div');
-    el.className = 'marker';
-    el.innerHTML = '🛠️'; // Emoji de truelle
-
-    // Ajouter le marqueur à la carte
-    new mapboxgl.Marker(el)
-      .setLngLat(coordinates)
-      .addTo(map);
-  }
-});
 
     // Initialisation de Swiper avec le module Autoplay
     const swiper = new Swiper('.home-slider', {
       loop: true,
-      modules: [Autoplay], // Ajouter le module Autoplay
+      modules: [Autoplay],
       autoplay: {
-        delay: 4000, // Défilement toutes les 2 secondes
-        disableOnInteraction: false, // Continuer l'autoplay même après une interaction
+        delay: 4000,
+        disableOnInteraction: false,
       },
     });
 
-    // Initialisation de LightGallery
-    lightGallery(document.querySelector('.projects .box-container'), {
-      selector: '.box'
-    });
+    // Initialisation de LightGallery une seule fois
+    if (!lightGalleryInitialized.current) {
+      lightGallery(document.querySelector('.projects'), {
+        selector: '.box'
+      });
+      lightGalleryInitialized.current = true;
+    }
 
     // Nettoyage des instances lors du démontage du composant
     return () => {
@@ -298,7 +269,7 @@ map.on('load', () => {
               scale={1}
               threshold={0.2}>
               <div className="box">
-                <img src="images/service-1.png" alt="Construction de bâtiments" />
+                <img src="images/temp-hot-line.svg" alt="Construction de bâtiments" />
                 <h3>Isolation</h3>
                 <p>Nous intervenons pour des projets d'isolation intérieure et/ou extérieure, en intégrant des finitions de haute qualité.</p>
               </div>
@@ -313,7 +284,7 @@ map.on('load', () => {
               scale={1}
               threshold={0.2}>
               <div className="box">
-                <img src="images/service-2.png" alt="Rénovation d'intérieur" />
+                <img src="images/home-9-line.svg" alt="Rénovation d'intérieur" />
                 <h3>Rénovation</h3>
                 <p>Transformez votre intérieur avec notre expertise en rénovation.</p>
               </div>
@@ -328,7 +299,7 @@ map.on('load', () => {
               scale={1}
               threshold={0.2}>
               <div className="box">
-                <img src="images/service-3.png" alt="Plâtrerie et cloisonnement" />
+                <img src="images/community-line.svg" alt="Plâtrerie et cloisonnement" />
                 <h3>Plâtrerie et Cloisonnement</h3>
                 <p>Nous réalisons les travaux de plâtrerie et cloisons pour créer des espaces personnalisés.</p>
               </div>
@@ -340,9 +311,9 @@ map.on('load', () => {
       <section className="projects" id="projects">
         <h1 className="heading">Nos projets</h1>
         <div className="box-container">
-          <a href="images/project-1.jpg" className="box">
+          <a href="images/image_site_dom/ba_1.jpg" className="box">
             <div className="image">
-              <img src="images/project-1.jpg" alt="" />
+              <img src="images/image_site_dom/ba_1.jpg" alt="" />
             </div>
             <div className="content">
               <div className="info">
@@ -352,9 +323,9 @@ map.on('load', () => {
               <i className="fas fa-plus"></i>
             </div>
           </a>
-          <a href="images/project-2.jpg" className="box">
+          <a href="images/image_site_dom/ba_2.jpg" className="box">
             <div className="image">
-              <img src="images/project-2.jpg" alt="" />
+              <img src="images/image_site_dom/ba_2.jpg" alt="" />
             </div>
             <div className="content">
               <div className="info">
@@ -364,9 +335,9 @@ map.on('load', () => {
               <i className="fas fa-plus"></i>
             </div>
           </a>
-          <a href="images/project-3.jpg" className="box">
+          <a href="images/image_site_dom/ba_3.jpg" className="box">
             <div className="image">
-              <img src="images/project-3.jpg" alt="" />
+              <img src="images/image_site_dom/ba_3.jpg" alt="" />
             </div>
             <div className="content">
               <div className="info">
