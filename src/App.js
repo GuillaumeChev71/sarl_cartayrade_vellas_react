@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import mapboxgl from 'mapbox-gl';
 import lightGallery from 'lightgallery';
@@ -17,6 +17,49 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpdG91bmVveiIsImEiOiJjbHI1Y3ZmZHMxbWI4MmpwO
 
 function App() {
   const lightGalleryInitialized = useRef(false);
+
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/send_email.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(formData)
+      });
+
+      const result = await response.json();
+      if (result.status === 'success') {
+
+        
+
+        // alert('Email envoyé avec succès!');
+      } else {
+        // alert('Erreur lors de l\'envoi de l\'email.');
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+    }
+  };
+
+
 
   useEffect(() => {
     // Initialisation de la carte Mapbox
@@ -49,6 +92,8 @@ function App() {
       });
       lightGalleryInitialized.current = true;
     }
+
+
 
     // Nettoyage des instances lors du démontage du composant
     return () => {
@@ -356,12 +401,16 @@ function App() {
           <div id="map-container" className="map">
             <div id="map" className="mapbox" data-mapbox></div>
           </div>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <h3>Ecrivez-nous !</h3>
-            <input type="text" placeholder="Nom" className="box" style={{ paddingLeft: '15px' }} />
-            <input type="email" placeholder="Email" className="box" style={{ paddingLeft: '15px' }} />
-            <input type="number" placeholder="Téléphone" className="box" style={{ paddingLeft: '15px' }} />
-            <textarea name="" placeholder="Message" className="box" id="" cols="30" rows="10" style={{ paddingLeft: '15px' }}></textarea>
+            <input type="text" placeholder="Nom" className="box" style={{ paddingLeft: '15px' }} value={formData.name}
+            onChange={handleChange} />
+            <input type="email" placeholder="Email" className="box" style={{ paddingLeft: '15px' }} value={formData.email}
+            onChange={handleChange}/>
+            <input type="number" placeholder="Téléphone" className="box" style={{ paddingLeft: '15px' }} value={formData.phone}
+            onChange={handleChange} />
+            <textarea name="" placeholder="Message" className="box" id="" cols="30" rows="10" style={{ paddingLeft: '15px' }} value={formData.message}
+            onChange={handleChange}></textarea>
             <Magnet padding={50} disabled={false} magnetStrength={10}><input type="submit" value="Envoyer" className="btn" /></Magnet>
           </form>
         </div>
