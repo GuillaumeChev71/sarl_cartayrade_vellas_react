@@ -1,4 +1,11 @@
 <?php
+
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les données du formulaire
     $name = $_POST['name'];
@@ -7,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = $_POST['message'];
 
     // Adresse email du gestionnaire
-    $to = 'gestionnaire@example.com';
+    $to = 'dev@itgcdev.fr';
     $subject = 'Nouveau message du formulaire de contact';
     $headers = "From: $email";
 

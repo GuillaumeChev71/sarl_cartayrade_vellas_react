@@ -37,7 +37,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/send_email.php', {
+      const response = await fetch('http://localhost:8000/send_email.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -48,10 +48,12 @@ function App() {
       const result = await response.json();
       if (result.status === 'success') {
 
-        
+        console.log('Email envoyé avec succès!');
 
         // alert('Email envoyé avec succès!');
       } else {
+
+        console.error('Erreur lors de l\'envoi de l\'email.');
         // alert('Erreur lors de l\'envoi de l\'email.');
       }
     } catch (error) {
@@ -403,13 +405,13 @@ function App() {
           </div>
           <form onSubmit={handleSubmit}>
             <h3>Ecrivez-nous !</h3>
-            <input type="text" placeholder="Nom" className="box" style={{ paddingLeft: '15px' }} value={formData.name}
+            <input type="text" name="name" placeholder="Nom" className="box" style={{ paddingLeft: '15px' }} value={formData.name}
             onChange={handleChange} />
-            <input type="email" placeholder="Email" className="box" style={{ paddingLeft: '15px' }} value={formData.email}
+            <input type="email" name="email" placeholder="Email" className="box" style={{ paddingLeft: '15px' }} value={formData.email}
             onChange={handleChange}/>
-            <input type="number" placeholder="Téléphone" className="box" style={{ paddingLeft: '15px' }} value={formData.phone}
+            <input type="number" name="phone" placeholder="Téléphone" className="box" style={{ paddingLeft: '15px' }} value={formData.phone}
             onChange={handleChange} />
-            <textarea name="" placeholder="Message" className="box" id="" cols="30" rows="10" style={{ paddingLeft: '15px' }} value={formData.message}
+            <textarea name="message" placeholder="Message" className="box" id="" cols="30" rows="10" style={{ paddingLeft: '15px' }} value={formData.message}
             onChange={handleChange}></textarea>
             <Magnet padding={50} disabled={false} magnetStrength={10}><input type="submit" value="Envoyer" className="btn" /></Magnet>
           </form>
