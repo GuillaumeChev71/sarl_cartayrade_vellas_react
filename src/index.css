@@ -10,7 +10,7 @@
   --border: 0.1rem solid rgba(0, 0, 0, 0.3);
 }
 
-* {
+* { 
   font-family: "Manrope", serif;
   font-optical-sizing: auto;
   font-weight: 450;
