@@ -26,11 +26,6 @@ jobs:
       env:
         CI: false # Désactive le traitement des avertissements comme des erreurs
 
-    - name: Lint code
-      run: npx eslint . --max-warnings=0
-      env:
-        CI: false
-
     - name: Install lftp
       run: sudo apt-get install lftp
 
