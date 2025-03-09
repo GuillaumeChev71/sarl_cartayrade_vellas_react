@@ -26,9 +26,6 @@ jobs:
       env:
         CI: false
 
-    - name: Install lftp
-      run: sudo apt-get install lftp
-
     - name: Debug secrets
       run: |
         echo "FTP_HOST is set: [${{ secrets.FTP_HOST != '' }}]"
@@ -39,46 +36,15 @@ jobs:
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
 
-    - name: Debug environment variables
+    - name: Deploy using FTP
       run: |
-        echo "FTP_HOST: $FTP_HOST"
-        echo "FTP_USERNAME: $FTP_USERNAME"
-      env:
-        FTP_HOST: ${{ secrets.FTP_HOST }}
-        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-
-    - name: Check FTP connectivity
-      run: |
-        echo "Checking FTP connectivity..."
-        nc -zv $FTP_HOST 21
-      env:
-        FTP_HOST: ${{ secrets.FTP_HOST }}
-
-    - name: Test FTP login
-      run: |
-        lftp -d -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "bye"
-      env:
-        FTP_HOST: ${{ secrets.FTP_HOST }}
-        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-
-    - name: Deploy to FTP with debug
-      run: |
-        export FTP_HOST=${{ secrets.FTP_HOST }}
-        export FTP_USERNAME=${{ secrets.FTP_USERNAME }}
-        export FTP_PASSWORD=${{ secrets.FTP_PASSWORD }}
-
-        echo "FTP_HOST: $FTP_HOST"
-        echo "FTP_USERNAME: $FTP_USERNAME"
-
-        lftp -d -u "$FTP_USERNAME","$FTP_PASSWORD" -e "
-        set ftp:ssl-allow no;
-        mirror -R build /www;
-        bye
-        " "$FTP_HOST"
-
-        echo "FTP deployment completed."
+        echo "open $FTP_HOST" > ftp_commands.txt
+        echo "user $FTP_USERNAME $FTP_PASSWORD" >> ftp_commands.txt
+        echo "cd /www" >> ftp_commands.txt
+        echo "lcd build" >> ftp_commands.txt
+        echo "mput -r *" >> ftp_commands.txt
+        echo "bye" >> ftp_commands.txt
+        ftp -inv < ftp_commands.txt
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
