@@ -1,0 +1,34 @@
+name: Build and Deploy to FTP
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14' # Vous pouvez spécifier la version de Node.js que vous utilisez
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build
+
+    - name: Deploy to FTP
+      uses: sebastianpopp/ftp-action@v2
+      with:
+        host: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: 'build' # Répertoire local à déployer
+        remote-dir: '/path/to/remote/dir' # Répertoire distant sur le serveur FTP
