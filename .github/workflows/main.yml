@@ -29,23 +29,57 @@ jobs:
     - name: Install lftp
       run: sudo apt-get install lftp
 
-    - name: Check FTP connectivity
+    - name: Debug secrets
       run: |
-        echo "Checking FTP connectivity..."
-        nc -zv $FTP_HOST 21
-
-    - name: Deploy to FTP with debug
+        echo "FTP_HOST is set: [${{ secrets.FTP_HOST != '' }}]"
+        echo "FTP_USERNAME is set: [${{ secrets.FTP_USERNAME != '' }}]"
+        echo "FTP_PASSWORD is set: [${{ secrets.FTP_PASSWORD != '' }}]"
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+
+    - name: Debug environment variables
       run: |
         echo "FTP_HOST: $FTP_HOST"
         echo "FTP_USERNAME: $FTP_USERNAME"
-        echo "Connecting to FTP server..."
-        lftp -d -u $FTP_USERNAME,$FTP_PASSWORD -e "
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+
+    - name: Check FTP connectivity
+      run: |
+        echo "Checking FTP connectivity..."
+        nc -zv $FTP_HOST 21
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+
+    - name: Test FTP login
+      run: |
+        lftp -d -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "bye"
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+
+    - name: Deploy to FTP with debug
+      run: |
+        export FTP_HOST=${{ secrets.FTP_HOST }}
+        export FTP_USERNAME=${{ secrets.FTP_USERNAME }}
+        export FTP_PASSWORD=${{ secrets.FTP_PASSWORD }}
+
+        echo "FTP_HOST: $FTP_HOST"
+        echo "FTP_USERNAME: $FTP_USERNAME"
+
+        lftp -d -u "$FTP_USERNAME","$FTP_PASSWORD" -e "
         set ftp:ssl-allow no;
         mirror -R build /www;
         bye
-        " $FTP_HOST
+        " "$FTP_HOST"
+
         echo "FTP deployment completed."
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
