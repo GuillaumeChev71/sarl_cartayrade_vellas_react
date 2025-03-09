@@ -36,6 +36,6 @@ jobs:
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
       run: |
         lftp -u $FTP_USERNAME,$FTP_PASSWORD -e "
-        mirror -R /home/runner/work/your-repo-name/your-repo-name/build /path/to/remote/dir;
+        mirror -R build /www;
         bye
         " $FTP_HOST
