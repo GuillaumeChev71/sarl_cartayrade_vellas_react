@@ -42,7 +42,7 @@ jobs:
         echo "user $FTP_USERNAME $FTP_PASSWORD" >> ftp_commands.txt
         echo "cd /www" >> ftp_commands.txt
         echo "lcd build" >> ftp_commands.txt
-        echo "mput -r *" >> ftp_commands.txt
+        echo "mput -R *" >> ftp_commands.txt  # Utilisez -R pour inclure les dossiers récursivement
         echo "bye" >> ftp_commands.txt
         ftp -inv < ftp_commands.txt
       env:
