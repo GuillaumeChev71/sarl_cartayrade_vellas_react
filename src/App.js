@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import mapboxgl from 'mapbox-gl';
-import lightGallery from 'lightgallery';
+import lightGallery from 'lightgallery'; 
 import 'lightgallery/css/lightgallery.css';
 import Swiper from 'swiper';
 import { Autoplay } from 'swiper/modules';
