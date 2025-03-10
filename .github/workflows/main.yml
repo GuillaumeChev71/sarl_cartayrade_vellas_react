@@ -34,13 +34,15 @@ jobs:
         echo "lcd build" >> ftp_commands.txt
         echo "prompt" >> ftp_commands.txt
         echo "binary" >> ftp_commands.txt
-    
-        # Ajoutez les fichiers et dossiers à transférer
-        find build -type f -print | sed -e "s/^/put /" >> ftp_commands.txt
-        find build -type d -print | sed -e "s/^/mkdir /" -e "s/$//" >> ftp_commands.txt
-    
+
+        # Ajoutez les fichiers à transférer
+        find build -type f | sed "s|build/||" | sed -e "s/^/put /" >> ftp_commands.txt
+
+        # Ajoutez les dossiers à créer
+        find build -type d | sed "s|build/||" | sed -e "s/^/mkdir -p /" -e "s/$//" | sort -r >> ftp_commands.txt
+
         echo "bye" >> ftp_commands.txt
-    
+
         ftp -inv < ftp_commands.txt
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
