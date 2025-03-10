@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl';
 import lightGallery from 'lightgallery'; 
 import 'lightgallery/css/lightgallery.css';
 import Swiper from 'swiper';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules'; 
 import 'swiper/css';
 import CountUp from './blocks/TextAnimations/CountUp/CountUp';
 import BlurText from './blocks/TextAnimations/BlurText/BlurText';
