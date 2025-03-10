@@ -31,11 +31,11 @@ jobs:
 
     - name: Deploy using lftp
       run: |
-        lftp -u $FTP_USERNAME,$FTP_PASSWORD -c "
+        lftp -u $FTP_USERNAME,$FTP_PASSWORD << EOF
         set ftp:ssl-allow no;
-        mirror -R build /www;
+        mirror -R ./build /www;
         bye
-        " $FTP_HOST
+        EOF
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
