@@ -31,13 +31,11 @@ jobs:
 
     - name: Deploy using lftp
       run: |
-        cat <<EOF > lftp_commands.txt
+        lftp -u $FTP_USERNAME,$FTP_PASSWORD -c "
         set ftp:ssl-allow no;
         mirror -R build /www;
         bye
-        EOF
-    
-        lftp -u $FTP_USERNAME,$FTP_PASSWORD -f lftp_commands.txt $FTP_HOST
+        " $FTP_HOST
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
