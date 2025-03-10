@@ -10,42 +10,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build project
-      run: npm run build
-      env:
-        CI: false
+      - name: Build project
+        run: npm run build
+        env:
+          CI: false
 
-    - name: Deploy using FTP
-      run: |
-        echo "open $FTP_HOST" > ftp_commands.txt
-        echo "user $FTP_USERNAME $FTP_PASSWORD" >> ftp_commands.txt
-        echo "cd /www" >> ftp_commands.txt
-        echo "lcd build" >> ftp_commands.txt
-        echo "prompt" >> ftp_commands.txt
-        echo "binary" >> ftp_commands.txt
-    
-        # Créez les dossiers nécessaires
-        find build -type d | sed "s|build/||" | sed -e "s/^/mkdir /" -e "s/$//" | sort -r | awk '{print "mkdir " $0}' >> ftp_commands.txt
-    
-        # Transférez les fichiers
-        find build -type f | sed "s|build/||" | sed -e "s/^/put /" >> ftp_commands.txt
-    
-        echo "bye" >> ftp_commands.txt
-    
-        ftp -inv < ftp_commands.txt
-      env:
-        FTP_HOST: ${{ secrets.FTP_HOST }}
-        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
+
+      - name: Deploy using lftp
+        run: |
+          lftp -c "
+          open $FTP_HOST
+          user $FTP_USERNAME $FTP_PASSWORD
+          mirror -R build /www
+          bye
+          "
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
