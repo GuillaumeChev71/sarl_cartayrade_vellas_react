@@ -26,16 +26,16 @@ jobs:
       env:
         CI: false
 
-    - name: Install lftp
-      run: sudo apt-get install -y lftp
-
-    - name: Deploy using lftp
+    - name: Deploy using FTP
       run: |
-        lftp -u $FTP_USERNAME,$FTP_PASSWORD << EOF
-        set ftp:ssl-allow no;
-        mirror -R ./build /www;
-        bye
-        EOF
+        echo "open $FTP_HOST" > ftp_commands.txt
+        echo "user $FTP_USERNAME $FTP_PASSWORD" >> ftp_commands.txt
+        echo "cd /www" >> ftp_commands.txt
+        echo "lcd build" >> ftp_commands.txt
+        echo "prompt" >> ftp_commands.txt
+        echo "mput -R *" >> ftp_commands.txt
+        echo "bye" >> ftp_commands.txt
+        ftp -inv < ftp_commands.txt
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
