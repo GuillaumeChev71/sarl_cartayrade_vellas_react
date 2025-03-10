@@ -26,25 +26,16 @@ jobs:
       env:
         CI: false
 
-    - name: Debug secrets
-      run: |
-        echo "FTP_HOST is set: [${{ secrets.FTP_HOST != '' }}]"
-        echo "FTP_USERNAME is set: [${{ secrets.FTP_USERNAME != '' }}]"
-        echo "FTP_PASSWORD is set: [${{ secrets.FTP_PASSWORD != '' }}]"
-      env:
-        FTP_HOST: ${{ secrets.FTP_HOST }}
-        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+    - name: Install lftp
+      run: sudo apt-get install -y lftp
 
-    - name: Deploy using FTP
+    - name: Deploy using lftp
       run: |
-        echo "open $FTP_HOST" > ftp_commands.txt
-        echo "user $FTP_USERNAME $FTP_PASSWORD" >> ftp_commands.txt
-        echo "cd /www" >> ftp_commands.txt
-        echo "lcd build" >> ftp_commands.txt
-        echo "mput -R *" >> ftp_commands.txt  # Utilisez -R pour inclure les dossiers récursivement
-        echo "bye" >> ftp_commands.txt
-        ftp -inv < ftp_commands.txt
+        lftp -u $FTP_USERNAME,$FTP_PASSWORD -e "
+        set ftp:ssl-allow no;
+        mirror -R build /www;
+        bye
+        " $FTP_HOST
       env:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
