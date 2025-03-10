@@ -36,7 +36,7 @@ jobs:
         echo "binary" >> ftp_commands.txt
     
         # Créez les dossiers nécessaires
-        find build -type d | sed "s|build/||" | sed -e "s/^/mkdir -p /" -e "s/$//" | sort -r >> ftp_commands.txt
+        find build -type d | sed "s|build/||" | sed -e "s/^/mkdir /" -e "s/$//" | sort -r | awk '{print "mkdir " $0}' >> ftp_commands.txt
     
         # Transférez les fichiers
         find build -type f | sed "s|build/||" | sed -e "s/^/put /" >> ftp_commands.txt
@@ -48,4 +48,4 @@ jobs:
         FTP_HOST: ${{ secrets.FTP_HOST }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-    
+        
