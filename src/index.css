@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
-:root { 
+:root {
   --yellow: #658147;
   --black: #111;
   --white: #E7F0DC;
@@ -10,11 +10,11 @@
   --border: 0.1rem solid rgba(0, 0, 0, 0.3);
 }
 
-* { 
+* {
   font-family: "Manrope", serif;
-  font-optical-sizing: auto;  
+  font-optical-sizing: auto;
   font-weight: 450;
-  font-style: normal; 
+  font-style: normal;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -57,7 +57,7 @@ section {
 }
 
 .about .row .content h3 {
-  font-size: 3.5rem; 
+  font-size: 3.5rem;
   color: var(--black);
   text-transform: capitalize;
 }
@@ -123,7 +123,7 @@ section {
   color: var(--black);
   text-transform: capitalize;
   display: flex;
-;
+  ;
 }
 
 .header .logo span {
@@ -131,7 +131,7 @@ section {
 }
 
 .navbar {
-  display:flex;
+  display: flex;
 }
 
 
@@ -991,6 +991,10 @@ section {
   box-sizing: content-box;
 }
 
+/*style du toaster*/
+.footer section {
+  padding: 0
+}
 
 @media (max-width: 1200px) {
   .header {

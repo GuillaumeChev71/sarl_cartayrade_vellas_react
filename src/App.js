@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import mapboxgl from 'mapbox-gl';
-import lightGallery from 'lightgallery'; 
+import lightGallery from 'lightgallery';
 import 'lightgallery/css/lightgallery.css';
 import Swiper from 'swiper';
-import { Autoplay } from 'swiper/modules'; 
+import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import CountUp from './blocks/TextAnimations/CountUp/CountUp';
 import BlurText from './blocks/TextAnimations/BlurText/BlurText';
@@ -12,6 +12,7 @@ import BlobCursor from './blocks/Animations/BlobCursor/BlobCursor';
 import Magnet from './blocks/Animations/Magnet/Magnet';
 import ScrollReveal from './blocks/TextAnimations/ScrollReveal/ScrollReveal';
 import AnimatedContent from './blocks/Animations/AnimatedContent/AnimatedContent';
+import { Toaster, toast } from 'sonner'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VpdG91bmVveiIsImEiOiJjbHI1Y3ZmZHMxbWI4MmpwODRlMWZhdGxzIn0.Gl-6FFo3NLZ-AhSnOKp2pQ';
 
@@ -49,12 +50,19 @@ function App() {
       if (result.status === 'success') {
 
         console.log('Email envoyé avec succès!');
+        toast.success('Email envoyé avec succès!');
+        //reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
 
-        // alert('Email envoyé avec succès!');
       } else {
 
         console.error('Erreur lors de l\'envoi de l\'email.');
-        // alert('Erreur lors de l\'envoi de l\'email.');
+        toast.error('Erreur lors de l\'envoi de l\'email.')
       }
     } catch (error) {
       console.error('Erreur:', error);
@@ -406,13 +414,13 @@ function App() {
           <form onSubmit={handleSubmit}>
             <h3>Ecrivez-nous !</h3>
             <input type="text" name="name" placeholder="Nom" className="box" style={{ paddingLeft: '15px' }} value={formData.name}
-            onChange={handleChange} />
+              onChange={handleChange} />
             <input type="email" name="email" placeholder="Email" className="box" style={{ paddingLeft: '15px' }} value={formData.email}
-            onChange={handleChange}/>
+              onChange={handleChange} />
             <input type="number" name="phone" placeholder="Téléphone" className="box" style={{ paddingLeft: '15px' }} value={formData.phone}
-            onChange={handleChange} />
+              onChange={handleChange} />
             <textarea name="message" placeholder="Message" className="box" id="" cols="30" rows="10" style={{ paddingLeft: '15px' }} value={formData.message}
-            onChange={handleChange}></textarea>
+              onChange={handleChange}></textarea>
             <Magnet padding={50} disabled={false} magnetStrength={10}><input type="submit" value="Envoyer" className="btn" /></Magnet>
           </form>
         </div>
@@ -424,8 +432,11 @@ function App() {
             <span>ITGC et Emma</span>
           </a>
         </div>
+        <Toaster richColors/>
       </section>
+      
     </div>
+    
   );
 }
 
