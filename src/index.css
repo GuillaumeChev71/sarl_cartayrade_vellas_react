@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=chillax@400&display=swap');
 
 :root {
   --yellow: #658147;
@@ -11,10 +11,7 @@
 }
 
 * {
-  font-family: "Manrope", serif;
-  font-optical-sizing: auto;
-  font-weight: 450;
-  font-style: normal;
+  font-family: 'Chillax', sans-serif;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
