@@ -372,8 +372,8 @@ function App() {
             </div>
             <div className="content">
               <div className="info">
-                <h3>dream home</h3>
-                <p>construction, design</p>
+                <h3>La bonne adresse</h3>
+                <p>Lanuéjols, Restaurant</p>
               </div>
               <i className="fas fa-plus"></i>
             </div>
@@ -384,8 +384,8 @@ function App() {
             </div>
             <div className="content">
               <div className="info">
-                <h3>dream home</h3>
-                <p>construction, design</p>
+                <h3>La bonne adresse</h3>
+                <p>Lanuéjols, Restaurant</p>
               </div>
               <i className="fas fa-plus"></i>
             </div>
@@ -396,8 +396,8 @@ function App() {
             </div>
             <div className="content">
               <div className="info">
-                <h3>dream home</h3>
-                <p>construction, design</p>
+                <h3>Chantier de rénovation</h3>
+                <p>Millau et alentours</p>
               </div>
               <i className="fas fa-plus"></i>
             </div>
